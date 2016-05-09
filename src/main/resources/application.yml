@@ -1,0 +1,26 @@
+server:
+  port: 9090
+  context-path: /sample
+  tomcat:
+    uri-encoding: UTF-8
+spring:
+  datasource:
+    pool-name: hikari-db-pool
+    url: "jdbc:mariadb://localhost:3306/nestdb"
+    username: "nest"
+    password: "!nest#12"
+    hikari:
+      data-source-class-name: org.mariadb.jdbc.MySQLDataSource
+      maximum-pool-size: 20
+      connection-timeout: 3
+      max-lifetime: 1800000
+      cache-prep-stmts: 250
+      prep-stmt-cache-size: 250
+      prep-stmt-cache-sql-limit: 2048
+      connection-test-query: SELECT 1
+  jpa:
+    show-sql: true
+    generate-ddl: true
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    hibernate:
+      ddl-auto: create
