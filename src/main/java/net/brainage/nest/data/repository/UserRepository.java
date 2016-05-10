@@ -28,5 +28,9 @@ import java.util.Optional;
  * @author <a href="mailto:ms29.seo@gmail.com">ms29.seo</a>
  */
 public interface UserRepository extends JpaRepository<User, Long> {
+
+    User findByUsername(String username);
+
     Optional<User> findOneByEmail(String email);
+
 }

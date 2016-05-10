@@ -19,20 +19,23 @@
 package net.brainage.nest.data.model;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import javax.persistence.*;
+
 
 /**
  * @author <a href="mailto:ms29.seo@gmail.com">ms29.seo</a>
  */
 @Data
 @NoArgsConstructor
+@EqualsAndHashCode(exclude = {"user"})
 @ToString(exclude = {"user"})
 @Entity
 @Table(name = "user_roles", uniqueConstraints = {
-        @UniqueConstraint(name = "UK_USERROLES_NAME", columnNames = {"name"})
+        @UniqueConstraint(name = "UK_USERROLES_USERID_NAME", columnNames = {"user_id", "name"})
 })
 public class UserRole {
 
@@ -43,8 +46,8 @@ public class UserRole {
     @Column(nullable = false, length = 50)
     private String name;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", foreignKey = @ForeignKey(name = "FK_USERROLES_USERID_USERS_ID"))
+    @ManyToOne
+    @JoinColumn(name = "user_id")
     private User user;
 
 }

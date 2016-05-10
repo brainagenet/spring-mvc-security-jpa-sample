@@ -19,7 +19,10 @@
 package net.brainage.nest.data.model;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
+import net.brainage.nest.data.model.enums.UserState;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -30,13 +33,13 @@ import java.util.Set;
  */
 @Data
 @NoArgsConstructor
+@EqualsAndHashCode(exclude = {"roles"})
+@ToString(exclude = {"roles"})
 @Entity
-@Table(name = "users",
-        uniqueConstraints = {
-                @UniqueConstraint(name = "UK_USERS_USERNAME", columnNames = {"username"}),
-                @UniqueConstraint(name = "UK_USERS_EMAIL", columnNames = {"email"})
-        }
-)
+@Table(name = "users",uniqueConstraints = {
+        @UniqueConstraint(name = "UK_USERS_USERNAME", columnNames = {"username"}),
+        @UniqueConstraint(name = "UK_USERS_EMAIL", columnNames = {"email"})
+})
 public class User {
 
     @Id
@@ -70,8 +73,6 @@ public class User {
     @Column(nullable = true)
     private Date lastModifiedOn;
 
-    @Enumerated(EnumType.STRING)
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private Set<UserRole> roles;
-
 }
