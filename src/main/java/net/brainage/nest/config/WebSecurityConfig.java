@@ -26,11 +26,11 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.crypto.password.Pbkdf2PasswordEncoder;
 
 /**
- *
  * @author <a href="mailto:ms29.seo@gmail.com">ms29.seo</a>
  */
 @Configuration
@@ -43,10 +43,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Autowired
-    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        auth
-            .inMemoryAuthentication()
-                .withUser("admin").password("1234").roles("ADMIN", "USER");
+    public void configureGlobal(AuthenticationManagerBuilder auth, UserDetailsService userDetailsService,
+                                PasswordEncoder passwordEncoder) throws Exception {
+        // auth.inMemoryAuthentication().withUser("admin").password("1234").roles("ADMIN", "USER");
+        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder);
     }
 
     @Override
@@ -58,12 +58,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
             .authorizeRequests()
-                .antMatchers("/account/signup/", "/account/password/reset/").permitAll()
+                .antMatchers("/account/signup/**", "/account/password/reset/**").permitAll()
                 .antMatchers("/", "/hello/").permitAll()
                 .anyRequest().authenticated()
                 .and()
             .formLogin()
-                .loginPage("/account/signin/").permitAll()
+                .loginPage("/account/signin/")
+                .permitAll()
                 .and()
             .logout()
                 .permitAll();

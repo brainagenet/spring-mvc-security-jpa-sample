@@ -24,11 +24,11 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.servlet.handler.SimpleMappingExceptionResolver;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
 
 /**
- *
  *
  * @author <a href="mailto:ms29.seo@gmail.com">ms29.seo</a>
  */
@@ -49,6 +49,8 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 
         registry.addViewController("/admin/").setViewName("admin/index");
         registry.addViewController("/admin/dashboard").setViewName("admin/index");
+
+        registry.addViewController("/error/404").setViewName("error/404");
     }
 
     @Override
@@ -63,6 +65,14 @@ public class WebConfig extends WebMvcConfigurerAdapter {
         viewResolver.setPrefix("/WEB-INF/jsp/");
         viewResolver.setSuffix(".jsp");
         return viewResolver;
+    }
+
+    @Bean
+    public SimpleMappingExceptionResolver simpleMappingExceptionResolver() {
+        SimpleMappingExceptionResolver exceptionResolver = new SimpleMappingExceptionResolver();
+        exceptionResolver.setDefaultErrorView("error/500");
+        exceptionResolver.setExceptionAttribute("ex");
+        return exceptionResolver;
     }
 
 }
