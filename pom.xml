@@ -141,6 +141,13 @@
             <version>19.0</version>
         </dependency>
 
+        <!-- SubnetUtils.SubnetInfo Class를 사용하면 CIDR Notation 사용 및 해당 Range에 포함되는지 확인 가능하다. -->
+        <dependency>
+            <groupId>commons-net</groupId>
+            <artifactId>commons-net</artifactId>
+            <version>3.4</version>
+        </dependency>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
