@@ -41,9 +41,22 @@ public class AclHostRepositoryTest {
     @Test
     @Transactional
     public void testFindNotAssginedByGroup() {
+        /*
         int groupId = 1;
-        List<AclHost> hosts = aclHostRepository.findNotAssginedByGroup(groupId);
+        List<AclHost> hosts = aclHostRepository.findAllNotAssginedByGroup(groupId);
         hosts.forEach(System.out::println);
+        */
     }
+
+
+    @Test
+    public void testFindAllByGroupId() {
+        /*
+        int groupId = 1;
+        List<AclHost> hosts = aclHostRepository.findAllByGroupId(groupId);
+        hosts.forEach(System.out::println);
+        */
+    }
+
 
 }
