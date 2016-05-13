@@ -45,8 +45,12 @@ public class AclHost {
     @Column(nullable = false)
     private String description;
 
+    /*
     @ManyToMany(mappedBy = "hosts", fetch = FetchType.LAZY)
     private Set<AclGroup> groups;
+    */
+    @OneToMany(mappedBy = "host")
+    private Set<AclMapping> groups;
 
     @Column(nullable = false)
     private Long createdBy;

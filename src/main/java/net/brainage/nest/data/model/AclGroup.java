@@ -58,7 +58,8 @@ public class AclGroup {
     @Column(nullable = false, length = 15)
     private RuleType rule = RuleType.ALLOW_FROM;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    /*
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinTable(
             name = "acl_mappings",
             joinColumns = {
@@ -71,6 +72,9 @@ public class AclGroup {
             }
     )
     private Set<AclHost> hosts;
+    */
+    @OneToMany(mappedBy = "group")
+    private Set<AclMapping> hosts;
 
     @Column(nullable = false)
     private Long createdBy;
