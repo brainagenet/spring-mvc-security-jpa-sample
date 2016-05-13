@@ -30,6 +30,13 @@ import java.util.List;
  */
 public interface AclHostRepository extends JpaRepository<AclHost, Integer> {
 
+    // @Query("select h from AclHost h INNER JOIN h.groups g where g.id = :groupId")
+    /*
+    @Query("select h from AclHost h JOIN h.groups g where g.id = :groupId")
+    List<AclHost> findAllByGroupId(@Param("groupId") int groupId);
+    */
+
+
     /*
 select h.id, h.name, h.description,
        h.created_by, h.created_by_name, h.created_on,
@@ -50,7 +57,9 @@ where mg.group_id is null
      * @return
      * @see <a href="http://stackoverflow.com/questions/26720565/jpql-query-for-many-to-many-relationship-where-item-does-not-exist-in-join-table">JPQL query for many to many relationship where item does not exist in join table</a>
      */
+    /*
     @Query("select h from AclHost h where not exists (select 1 from AclGroup g where g.id = :groupId and h member of g.hosts)")
-    List<AclHost> findNotAssginedByGroup(@Param("groupId") int groupId);
+    List<AclHost> findAllNotAssginedByGroup(@Param("groupId") int groupId);
+    */
 
 }
