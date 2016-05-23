@@ -19,6 +19,7 @@
 package net.brainage.nest.service;
 
 import lombok.extern.slf4j.Slf4j;
+import net.brainage.nest.data.model.AclGroup;
 import net.brainage.nest.data.repository.AclGroupRepository;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,8 @@ import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
+
+import java.util.List;
 
 /**
  * @author <a href="mailto:ms29.seo+ara@gmail.com">ms29.seo</a>
@@ -43,4 +46,20 @@ public class AclGroupServiceImpl implements AclGroupService, InitializingBean {
     public void afterPropertiesSet() throws Exception {
         Assert.notNull(aclGroupRepository, "The 'aclGroupRepository' property must not be null.");
     }
+
+    @Override
+    public List<AclGroup> getAclGroups() {
+        return aclGroupRepository.findAll();
+    }
+
+    @Override
+    public AclGroup getAclGroup(int id, boolean isWithHosts) {
+        AclGroup aclGroup = aclGroupRepository.findOne(id);
+        if (isWithHosts) {
+            // 맵핑되어 있는 Host 목록을 조회한다.
+            aclGroup.getHosts();
+        }
+        return aclGroup;
+    }
+
 }

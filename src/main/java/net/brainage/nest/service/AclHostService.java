@@ -18,8 +18,15 @@
  */
 package net.brainage.nest.service;
 
+import net.brainage.nest.data.model.AclHost;
+
+import java.util.List;
+
 /**
  * @author <a href="mailto:ms29.seo+ara@gmail.com">ms29.seo</a>
  */
 public interface AclHostService {
+
+    List<AclHost> getHostList();
+
 }

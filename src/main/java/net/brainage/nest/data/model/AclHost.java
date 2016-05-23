@@ -22,6 +22,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -45,11 +46,7 @@ public class AclHost {
     @Column(nullable = false)
     private String description;
 
-    /*
-    @ManyToMany(mappedBy = "hosts", fetch = FetchType.LAZY)
-    private Set<AclGroup> groups;
-    */
-    @OneToMany(mappedBy = "host")
+    @OneToMany(mappedBy = "host", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     private Set<AclMapping> groups;
 
     @Column(nullable = false)
@@ -68,6 +65,16 @@ public class AclHost {
 
     @Temporal(TemporalType.TIMESTAMP)
     private Date lastModifiedOn;
+
+    public void addGroup(AclGroup group) {
+        if ( this.groups ==null) {
+            this.groups = new HashSet<>();
+        }
+        AclMapping m = new AclMapping();
+        m.setGroupId(group.getId());
+        m.setGroup(group);
+        this.groups.add(m);
+    }
 
     public void setCreatedByUser(User user) {
         this.setCreatedBy(user.getId());

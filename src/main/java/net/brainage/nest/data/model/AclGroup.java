@@ -58,22 +58,7 @@ public class AclGroup {
     @Column(nullable = false, length = 15)
     private RuleType rule = RuleType.ALLOW_FROM;
 
-    /*
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinTable(
-            name = "acl_mappings",
-            joinColumns = {
-                    @JoinColumn(name = "group_id", referencedColumnName = "id",
-                            foreignKey = @ForeignKey(name = "FK_ACLMAPPINGS_GROUPID_ACLGROUPS_ID"))
-            },
-            inverseJoinColumns = {
-                    @JoinColumn(name = "host_id", referencedColumnName = "id",
-                            foreignKey = @ForeignKey(name = "FK_ACLMAPPINGS_HOSTID_ACLHOSTS_ID"))
-            }
-    )
-    private Set<AclHost> hosts;
-    */
-    @OneToMany(mappedBy = "group")
+    @OneToMany(mappedBy = "group", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<AclMapping> hosts;
 
     @Column(nullable = false)

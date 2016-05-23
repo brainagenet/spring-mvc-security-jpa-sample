@@ -1,6 +1,6 @@
 /*
- * (#) net.brainage.nest.web.controller.AclGroupController.java
- * Created on 2016-05-12
+ * (#) net.brainage.nest.web.controller.AclGroupRestController.java
+ * Created on 2016-05-13
  *
  * Copyright 2015 brainage.net
  *
@@ -19,30 +19,38 @@
 package net.brainage.nest.web.controller;
 
 import lombok.extern.slf4j.Slf4j;
+import net.brainage.nest.data.model.AclGroup;
 import net.brainage.nest.service.AclGroupService;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.Banner;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.Assert;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * @author <a href="mailto:ms29.seo+ara@gmail.com">ms29.seo</a>
  */
 @Slf4j
-@Controller
-@RequestMapping(path = {"/acl/groups"})
-public class AclGroupController implements InitializingBean {
+@RestController
+@RequestMapping(path = {"/api/acl/groups"})
+public class AclGroupRestController implements InitializingBean {
 
     @Autowired
     private AclGroupService aclGroupService;
 
-    @RequestMapping(path = {"/"}, method = RequestMethod.GET)
-    public String index(Model model) {
-        return "acl/group_index";
+    @RequestMapping(method = RequestMethod.GET)
+    public List<AclGroup> getAclGroupList(Model model) {
+        return aclGroupService.getAclGroups();
+    }
+
+    @RequestMapping(path = "/{id}", method = RequestMethod.GET)
+    public AclGroup getAclGroup(
+            @PathVariable("id") int id,
+            @RequestParam(name = "withHosts", required = false, defaultValue = "false") boolean isWithHosts,
+            Model model) {
+        return aclGroupService.getAclGroup(id, isWithHosts);
     }
 
     @Override

@@ -1,6 +1,6 @@
 /*
- * (#) net.brainage.nest.service.AclGroupService.java
- * Created on 2016-05-12
+ * (#) net.brainage.nest.data.criteria.SearchCriteria.java
+ * Created on 2016-05-18
  *
  * Copyright 2015 brainage.net
  *
@@ -16,24 +16,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License. 
  */
-package net.brainage.nest.service;
+package net.brainage.nest.data.criteria;
 
-import net.brainage.nest.data.model.AclGroup;
-
-import java.util.List;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
- * @author <a href="mailto:ms29.seo+ara@gmail.com">ms29.seo</a>
+ * @author <a href="mailto:ms29.seo@gmail.com">ms29.seo</a>
  */
-public interface AclGroupService {
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class SearchCriteria {
 
-    /**
-     * 등록되어 있는 ACL Group 목록을 조회합니다.
-     *
-     * @return ACL Group 목록
-     */
-    List<AclGroup> getAclGroups();
-
-    AclGroup getAclGroup(int id, boolean isWithHosts);
+    private String key;
+    private SearchOperation operation;
+    private Object value;
 
 }

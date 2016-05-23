@@ -1,8 +1,3 @@
-server:
-  port: 9090
-  context-path: /sample
-  tomcat:
-    uri-encoding: UTF-8
 spring:
   datasource:
     pool-name: hikari-db-pool
@@ -28,3 +23,8 @@ security:
   ignored: true
   basic:
     enabled: false
+server:
+  port: 9090
+  context-path: /sample
+  tomcat:
+    uri-encoding: UTF-8

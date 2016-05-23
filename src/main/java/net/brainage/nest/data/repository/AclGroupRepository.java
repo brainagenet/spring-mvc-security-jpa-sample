@@ -20,9 +20,10 @@ package net.brainage.nest.data.repository;
 
 import net.brainage.nest.data.model.AclGroup;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
 /**
  * @author <a href="mailto:ms29.seo+ara@gmail.com">ms29.seo</a>
  */
-public interface AclGroupRepository extends JpaRepository<AclGroup, Integer> {
+public interface AclGroupRepository extends JpaRepository<AclGroup, Integer>, JpaSpecificationExecutor<AclGroup> {
 }

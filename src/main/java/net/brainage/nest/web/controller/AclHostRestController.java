@@ -1,6 +1,6 @@
 /*
- * (#) net.brainage.nest.web.controller.AclGroupController.java
- * Created on 2016-05-12
+ * (#) net.brainage.nest.web.controller.AclHostRestController.java
+ * Created on 2016-05-13
  *
  * Copyright 2015 brainage.net
  *
@@ -19,35 +19,36 @@
 package net.brainage.nest.web.controller;
 
 import lombok.extern.slf4j.Slf4j;
-import net.brainage.nest.service.AclGroupService;
+import net.brainage.nest.data.model.AclHost;
+import net.brainage.nest.service.AclHostService;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.Banner;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 /**
  * @author <a href="mailto:ms29.seo+ara@gmail.com">ms29.seo</a>
  */
 @Slf4j
-@Controller
-@RequestMapping(path = {"/acl/groups"})
-public class AclGroupController implements InitializingBean {
+@RestController
+@RequestMapping(path = {"/api/acl/hosts"})
+public class AclHostRestController implements InitializingBean {
 
     @Autowired
-    private AclGroupService aclGroupService;
+    private AclHostService aclHostService;
 
-    @RequestMapping(path = {"/"}, method = RequestMethod.GET)
-    public String index(Model model) {
-        return "acl/group_index";
+    @RequestMapping(path = "/", method = RequestMethod.GET)
+    public List<AclHost> getList() {
+        return aclHostService.getHostList();
     }
+
 
     @Override
     public void afterPropertiesSet() throws Exception {
-        Assert.notNull(aclGroupService, "The 'aclGroupService' property must not be null.");
+        Assert.notNull(aclHostService, "The 'aclHostService' property must not be null.");
     }
-
 }

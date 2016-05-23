@@ -20,6 +20,7 @@ package net.brainage.nest.data.repository;
 
 import net.brainage.nest.data.model.AclHost;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
@@ -28,13 +29,18 @@ import java.util.List;
 /**
  * @author <a href="mailto:ms29.seo+ara@gmail.com">ms29.seo</a>
  */
-public interface AclHostRepository extends JpaRepository<AclHost, Integer> {
+public interface AclHostRepository extends JpaRepository<AclHost, Integer>, JpaSpecificationExecutor<AclHost> {
 
     // @Query("select h from AclHost h INNER JOIN h.groups g where g.id = :groupId")
     /*
     @Query("select h from AclHost h JOIN h.groups g where g.id = :groupId")
     List<AclHost> findAllByGroupId(@Param("groupId") int groupId);
     */
+
+
+    @Query("select h from AclHost h inner join h.groups g where g.groupId = :gid")
+    List<AclHost> findAllByGroup(@Param("gid") int gid);
+
 
 
     /*

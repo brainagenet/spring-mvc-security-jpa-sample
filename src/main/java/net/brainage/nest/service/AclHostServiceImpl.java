@@ -19,6 +19,7 @@
 package net.brainage.nest.service;
 
 import lombok.extern.slf4j.Slf4j;
+import net.brainage.nest.data.model.AclHost;
 import net.brainage.nest.data.repository.AclHostRepository;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,8 @@ import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
+
+import java.util.List;
 
 /**
  * @author <a href="mailto:ms29.seo+ara@gmail.com">ms29.seo</a>
@@ -38,6 +41,11 @@ public class AclHostServiceImpl implements AclHostService, InitializingBean {
 
     @Autowired
     private AclHostRepository aclHostRepository;
+
+    @Override
+    public List<AclHost> getHostList() {
+        return aclHostRepository.findAll();
+    }
 
     @Override
     public void afterPropertiesSet() throws Exception {
